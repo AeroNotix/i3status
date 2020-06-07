@@ -195,6 +195,8 @@ static bool slurp_battery_info(struct battery_info *batt_info, yajl_gen json_gen
         else if (BEGINS_WITH(last, "POWER_SUPPLY_ENERGY_FULL=") ||
                  BEGINS_WITH(last, "POWER_SUPPLY_CHARGE_FULL="))
             batt_info->full_last = atoi(walk + 1);
+        else if (BEGINS_WITH(last, "POWER_SUPPLY_TIME_TO_EMPTY_NOW="))
+            batt_info->seconds_remaining = atoi(walk + 1) * 60;
     }
 
     /* the difference between POWER_SUPPLY_ENERGY_NOW and
